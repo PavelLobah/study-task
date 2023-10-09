@@ -14,6 +14,11 @@ class Settings(BaseModel):
     title: str = os.getenv("TITLE")
     version: str = os.getenv("VERSION")
     description: str = os.getenv("DESCRIPTION")
+    host: str = os.getenv("DB_HOST")
+    port: str = os.getenv("DB_PORT")
+    name: str = os.getenv("DB_NAME")
+    user: str = os.getenv("DB_USER")
+    passw: str = os.getenv("DB_PASS")
 
     class Config:
         env_file = ".env"
