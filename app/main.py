@@ -5,7 +5,7 @@ from app.routers import (
     router_task,
 )
 from app.exceptions import JsonException, json_exception_handler
-from app.db.mockdb import db
+from app.db.db import db
 from app.settings import get_settings
 
 settings = get_settings()
