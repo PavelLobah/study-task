@@ -1,10 +1,10 @@
 import psycopg2
-
+from app.common.singleton import Singleton
 # Проблема импорта настроек
 # from ..settings import get_settings
 
 # settings = get_settings()
-def connect(self):
+def connection():
     try:
         connection = psycopg2.connect(
             host="localhost",
@@ -25,7 +25,7 @@ def close_connection(connection):
 
 
 def create_table():
-    connection = connect()
+    connection = connection()
     if not connection:
         return
 
@@ -48,7 +48,7 @@ def create_table():
 
 
 def insert_data():
-    connection = connect()
+    connection = connection()
     if not connection:
         return
 
@@ -75,7 +75,7 @@ def insert_data():
 
 
 def get_all():
-    connection = connect()
+    connection = connection()
     if not connection:
         return
 
@@ -92,13 +92,15 @@ def get_all():
         close_connection(connection)
 
 
-
 # create_table()
 # insert_data()
 # get_all()
 
 
-class Db:
+class Db(Singleton):
+    _table_pk = {}
+    _db = {}
+
     def connect(self):
         try:
             self.connection = psycopg2.connect(
@@ -112,9 +114,8 @@ class Db:
         except Exception as ex:
             print("[INFO] Error while connecting to PostgreSQL", ex)
 
-
     def __init__(self):
-        self.conn = connect(self)
+        self.conn = self.connect()
         self.cursor = self.conn.cursor()
 
     def init_schema(self, tablename, pk):
@@ -122,8 +123,8 @@ class Db:
         self.cursor.execute(create_table_query)
         self.conn.commit()
 
-    # def get_pk(self, tablename):
-    #     return "id"  # Предполагается, что первичный ключ всегда называется "id"
+    def get_pk(self, tablename):
+        return self._table_pk[tablename]
 
     def find_by(self, tablename, field, val=None):
         if val is not None:
