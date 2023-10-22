@@ -1,6 +1,8 @@
 from app.common.singleton import Singleton
-
+# from common.singleton import Singleton
 # Singleton!!!!
+
+
 class Db(Singleton):
     _table_pk = {}
     _db = {}
@@ -56,7 +58,8 @@ class Db(Singleton):
     def delete_one(self, tablename, _id):
         old_len = len(self._db[tablename])
         pk = self.get_pk(tablename)
-        self._db[tablename] = [row for row in self._db[tablename] if row.dict()[pk] != _id]
+        self._db[tablename] = [row for row in self._db[tablename] if row.dict()[
+            pk] != _id]
         return old_len > len(self._db[tablename])
 
 

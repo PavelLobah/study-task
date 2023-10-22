@@ -21,6 +21,7 @@ async def json_exception_handler(_: Request, e: JsonException):
     :param e: JsonException
     :return: response
     """
-    response = JSONResponse(content=e.response.model_dump(), status_code=e.status_code)
+    response = JSONResponse(
+        content=e.response.model_dump(), status_code=e.status_code)
     log.warning("JsonException: " + str(e.response))
     return response

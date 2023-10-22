@@ -3,9 +3,9 @@ from app.dto.common import ErrorResponse, SuccessResponse
 from fastapi import status
 from app.exceptions import JsonException
 import app.dto.task as dto
-from loguru import logger as log
 from app.db.mockdb import db
 from datetime import datetime
+from loguru import logger as log
 
 # Условно моделируем имя таблицы, в которой хранятся данные
 TABLE_NAME = "tasks"

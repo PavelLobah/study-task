@@ -1,12 +1,10 @@
 from fastapi import FastAPI
 from loguru import logger as log
-import uvicorn
-from app.routers import (
-    router_task,
-)
+from app.routers import router_task
 from app.exceptions import JsonException, json_exception_handler
-from app.db.db import db
+from app.db.mockdb import db
 from app.settings import get_settings
+
 
 settings = get_settings()
 
@@ -25,8 +23,8 @@ async def app_startup():
     return
 
 
-# if __name__ == "__main__":
-#     log.error(
-#         "Run me like: uvicorn app.main:app --host=0.0.0.0 --port=8000 --reload")
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="localhost", port=8000, reload=True)
+    log.error(
+        "Run me like: uvicorn app.main:app --host=0.0.0.0 --port=80 --reload")
+# if __name__ == "__main__":
+#     uvicorn.run("main:app", host="localhost", port=8000, reload=True)
