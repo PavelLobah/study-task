@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/app
+    ports:
+      - 8000:8000
+    environment:
+      - ENVIRONMENT=dev
+      - TESTING=0
+      - DB_DSN=postgres://postgres:postgres@db:5432/web_dev
+    depends_on:
+      - db
+    networks:
+      - net
+
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    volumes:
+      - ./db_vol:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - net
+
+
+networks:
+  net:
+    driver: bridge

@@ -9,6 +9,8 @@ class Db(Singleton):
     # def __init__(self):
     #     self._db = {}
 
+
+
     def init_schema(self, tablename, pk):
         self._table_pk[tablename] = pk
         if tablename not in self._db:

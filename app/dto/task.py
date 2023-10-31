@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from datetime import datetime
 
 class TaskId(BaseModel):
-    issue_id: str = Field(..., alias="issue_id")
+    issue_id: int = Field(..., alias="issue_id")
 
 
 class TaskBase(BaseModel):
@@ -18,14 +18,14 @@ class TaskBase(BaseModel):
 
 
 class Task(TaskBase, TaskId):
-    # created_at: datetime
+    created_at: datetime
     class Config:
         json_schema_extra = {
             "example": {
                 "issue_id": "1",
                 "name": "My New Task",
                 "description": "Something to be done",
-                # "created_at": "2023-09-28 23:59:59"
+                "created_at": "2023-09-28 23:59:59"
             }
         }
 

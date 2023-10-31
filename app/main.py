@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from loguru import logger as log
 from app.routers import router_task
 from app.exceptions import JsonException, json_exception_handler
-from app.db.mockdb import db
+from app.db.postgres_db import db
 from app.settings import get_settings
 
 
@@ -19,6 +19,7 @@ app.add_exception_handler(JsonException, json_exception_handler)
 @app.on_event('startup')
 async def app_startup():
     db.init_schema(router_task.TABLE_NAME, "issue_id")
+    db.insert_data()
     log.success("Service started.")
     return
 

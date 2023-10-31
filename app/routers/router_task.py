@@ -3,7 +3,7 @@ from app.dto.common import ErrorResponse, SuccessResponse
 from fastapi import status
 from app.exceptions import JsonException
 import app.dto.task as dto
-from app.db.mockdb import db
+from app.db.postgres_db import db
 from datetime import datetime
 from loguru import logger as log
 
@@ -13,7 +13,6 @@ TABLE_NAME = "tasks"
 router = APIRouter(
     tags=["task"],
 )
-
 
 @router.post("/task", status_code=status.HTTP_201_CREATED)
 async def create_task(issue: dto.TaskBase = Body(...)) -> SuccessResponse[dto.TaskId]:
