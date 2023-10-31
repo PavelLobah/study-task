@@ -1,5 +1,6 @@
 .vscode/
 db_vol/
+.idea/
 
 
 # Byte-compiled / optimized / DLL files
