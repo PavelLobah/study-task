@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from datetime import datetime
+
 
 class TaskId(BaseModel):
     issue_id: str = Field(..., alias="issue_id")
@@ -8,6 +8,7 @@ class TaskId(BaseModel):
 class TaskBase(BaseModel):
     name: str
     description: str = ""
+
     class Config:
         json_schema_extra = {
             "example": {
@@ -33,6 +34,7 @@ class Task(TaskBase, TaskId):
 class TaskCollection(BaseModel):
     total: int = 0
     items: list[Task] = []
+
     class Config:
         json_schema_extra = {
             "example": {
@@ -46,5 +48,3 @@ class TaskCollection(BaseModel):
                 ]
             }
         }
-
-

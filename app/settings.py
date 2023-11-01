@@ -1,4 +1,3 @@
-
 from pydantic_settings import BaseSettings
 from functools import lru_cache
 
@@ -20,7 +19,7 @@ class Settings(BaseSettings):
     name: str = "DB_NAME"
     user: str = "DB_USER"
     passw: str = "DB_PASS"
-
+    db_url: str = "DATABASE_URL"
     # class Config:
     #     env_file = ".env"
 
