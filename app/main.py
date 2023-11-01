@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from loguru import logger as log
 from app.routers import router_task
 from app.exceptions import JsonException, json_exception_handler
-from app.db.db import database, User
+from app.db.db import database, Task
 from app.settings import get_settings
 
 
@@ -24,7 +24,7 @@ app.add_exception_handler(JsonException, json_exception_handler)
 
 @app.get("/")
 async def read_root():
-    return await User.objects.all()
+    return await Task.objects.all()
 
 
 @app.on_event("startup")
@@ -32,7 +32,7 @@ async def startup():
     if not database.is_connected:
         await database.connect()
     # create a dummy entry
-    await User.objects.get_or_create(email="test@test.com")
+    await Task.objects.get_or_create(description="task1")
 
 
 @app.on_event("shutdown")
